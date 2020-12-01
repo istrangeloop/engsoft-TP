@@ -2,7 +2,7 @@
 
 Trabalho prático da disciplina de Engenharia de Software
 
-Equipe: Ingrid Spangler, João Coelho, Keller Clayderman, Henry Tamekloe.
+Equipe: Henry Tamekloe, Ingrid Spangler, João Coelho, Keller Clayderman.
 
 ## Escopo
 
