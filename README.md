@@ -1,4 +1,4 @@
-# engsoft-TP
+# Dietário
 
 Trabalho prático da disciplina de Engenharia de Software
 
