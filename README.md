@@ -1,5 +1,10 @@
 # Dietário
 
+di.e.tá.ri.odjɛˈtarju
+nome masculino
+1.	pessoa que se ocupa de dietas
+2.	descrição ou receita de uma dieta
+
 Trabalho prático da disciplina de Engenharia de Software
 
 Equipe: Henry Tamekloe, Ingrid Spangler, João Coelho, Keller Clayderman.
