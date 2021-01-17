@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import StartPage from './StartPage.js'
+import MaterialExample from './MaterialExample.js'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         </a>
       </header>
       <StartPage name="Engsoft"/>
+      <MaterialExample />
     </div>
   );
 }

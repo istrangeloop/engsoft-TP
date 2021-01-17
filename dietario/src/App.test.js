@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 import StartPage from './StartPage'
 import { sum } from './utils.js'
+import MaterialExample from './MaterialExample.js'
 
 test('renders learn react link', () => {
   render(<App />);
@@ -19,4 +20,10 @@ test('teste de teste para o tdd', () => {
 
 test('função avulsa', () => {
   expect(sum(2, 3)).toBe(5);
+})
+
+test('exemplo do material ui', () => {
+  render(<MaterialExample/>)
+  const comp = screen.queryByText(/EXAMPLE DIALOG/i)
+  expect(comp).not.toBeInTheDocument()
 })
