@@ -17,3 +17,10 @@ Equipe: Henry Tamekloe, Ingrid Spangler, João Coelho, Keller Clayderman.
 ## Quadro do Sprint
 
 https://github.com/istrangeloop/engsoft-TP/projects/1
+
+## Instruções
+
+- Fazer download do código aqui
+- instalar os node_modules com `npm install`
+- rodar com `npm start`
+- testar com `npm test`
