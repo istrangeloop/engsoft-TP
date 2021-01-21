@@ -1,27 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-import StartPage from './StartPage.js'
+import {Switch, Route, BrowserRouter} from 'react-router-dom'
 import MaterialExample from './MaterialExample.js'
+import Home from './Home.jsx'
+import Dieta from './Dieta.jsx'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <StartPage name="Engsoft"/>
-      <MaterialExample />
+      <BrowserRouter>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/dieta' component={Dieta}/>
+          </Switch>
+        <MaterialExample />
+      </BrowserRouter>
     </div>
   );
 }
