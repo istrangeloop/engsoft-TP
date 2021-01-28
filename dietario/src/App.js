@@ -3,7 +3,8 @@ import './App.css';
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
 import MaterialExample from './MaterialExample.js'
 import Home from './Home.jsx'
-import Dieta from './Dieta.jsx'
+import Dieta from './Dieta.jsx';
+import ListWrapper from './Component/listWrapper'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route exact path='/' component={Home}/>
             <Route path='/dieta' component={Dieta}/>
           </Switch>
+          <ListWrapper/>
         <MaterialExample />
       </BrowserRouter>
     </div>
