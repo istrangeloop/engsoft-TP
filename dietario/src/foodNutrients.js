@@ -1,17 +1,19 @@
-let data = null;
-let food_objects = [];
+const data = {};
+const food_objects = [];
 
 async function init() {
   return fetch("nutrientes.json")
     .then((res) => res.json())
     .then(
       (result) => {
-        data = result;
-        food_objects = data.items.map((x) =>
-          x.reduce((acc, cur, i) => {
-            acc[data.columns[i]] = cur;
-            return acc;
-          }, {})
+        Object.assign(data, result);
+        food_objects.push(
+          ...data.items.map((x) =>
+            x.reduce((acc, cur, i) => {
+              acc[data.columns[i]] = cur;
+              return acc;
+            }, {})
+          )
         );
       },
       (error) => {
