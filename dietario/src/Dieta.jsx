@@ -5,6 +5,8 @@ import { DataGrid } from "@material-ui/data-grid";
 import TypoGraphy from "@material-ui/core/Typography";
 import { valoresDiarios } from "./utils.js";
 import * as foodNutrients from "./foodNutrients.js";
+import TabelaSelecionados from "./Component/TabelaSelecionados"
+import TabelaRecomendados from "./Component/TabelaRecomendados"
 
 const TabelaValoresDiarios = (props) => {
   const cols2 = [
@@ -17,7 +19,7 @@ const TabelaValoresDiarios = (props) => {
   const rows = valoresDiarios.map((item) => {
     return { id: item.id, nome: item.nome, selecionado: 0, recomendado: item.valor, unidade: item.unidade };
   });
-  console.log(rows);
+  
   return (
     <>
       <TypoGraphy variant="h3" component="h2">
@@ -37,6 +39,8 @@ class Dieta extends React.Component {
       initialized: false,
       columns: [],
       rows: [],
+      dailyDiets: [[],[],[],[],[],[],[]], // Dias da semana
+      selectedDay: 0,
     };
   }
 
@@ -64,26 +68,37 @@ class Dieta extends React.Component {
     this.setState({ initialized: true });
   }
 
+  handleAddItem = (id) => {
+    let updatedDiets = this.state.dailyDiets
+    updatedDiets[this.state.selectedDay].push(id)
+    console.log(updatedDiets)
+    this.setState({ dailyDiets: updatedDiets })
+  }
+
+  handleRemoveItem = (id) => {
+    let updatedDiets = this.state.dailyDiets
+    
+    updatedDiets[this.state.selectedDay] = 
+        updatedDiets[this.state.selectedDay].filter(itemId => itemId != id)
+
+    this.setState({ dailyDiets: updatedDiets })
+  }
+
   render() {
     return (
       <>
         <Grid container spacing={3} style={{ width: "90%" }} justify="center">
           <Grid item xs={8} style={{ height: 400 }}>
-            <TypoGraphy variant="h3" component="h2">
-              Selecionados
-            </TypoGraphy>
-            <DataGrid rows={this.state.rows} columns={this.state.columns} checkboxSelection />
+            <TabelaSelecionados rows={this.state.rows}
+             columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
+             selectedRows={this.state.dailyDiets[this.state.selectedDay] || []} />
           </Grid>
           <Grid item xs={4} style={{ height: 400 }}>
             <TabelaValoresDiarios />
           </Grid>
           <Grid item xs={12} style={{ height: 400, width: "60%" }}>
-            <Box>
-              <TypoGraphy variant="h3" component="h2">
-                Recomendados
-              </TypoGraphy>
-            </Box>
-            <DataGrid rows={this.state.rows} columns={this.state.columns} checkboxSelection />
+            <TabelaRecomendados rows={this.state.rows}
+             columns={this.state.columns} handleAddItem={this.handleAddItem} />
           </Grid>
         </Grid>
         <p>Imprimir</p>
