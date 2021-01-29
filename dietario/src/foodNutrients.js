@@ -7,8 +7,9 @@ async function init() {
     .then(
       (result) => {
         Object.assign(data, result);
-        food_objects.push(
-          ...data.items.map((x) =>
+        Object.assign(
+          food_objects,
+          data.items.map((x) =>
             x.reduce((acc, cur, i) => {
               acc[data.columns[i]] = cur;
               return acc;
