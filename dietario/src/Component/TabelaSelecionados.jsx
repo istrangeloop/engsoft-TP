@@ -21,15 +21,18 @@ const DaySelector = props => {
     decreaseDay
   } = props
 
+  const buttonStyle = {fontSize:'20px'}
+  const titleStyle = { display: 'flex', justifyContent:'center', width: '10vw' }
+
   return (
-    <Box display="flex">
-      <Button onClick={decreaseDay}>
+    <Box style={{ display: 'flex', alignItems:'center' }}>
+      <Button onClick={decreaseDay} style={buttonStyle}>
         {"<"}
       </Button>
-      <TypoGraphy>
+      <TypoGraphy style={titleStyle}>
         {int2day[selectedDay]}
       </TypoGraphy>
-      <Button onClick={increaseDay}>
+      <Button onClick={increaseDay} style={buttonStyle}>
         {">"}
       </Button>
     </Box>
