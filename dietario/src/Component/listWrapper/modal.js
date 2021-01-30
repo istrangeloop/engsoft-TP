@@ -1,31 +1,22 @@
 import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import {Grid, TextField} from '@material-ui/core'
+import {Grid, TextField, Typography} from '@material-ui/core'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 400,
+    width: "60%",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    top: "5%",
+    left: "20%",
   },
   root: {
     "& .MuiTextField-root": {
@@ -33,13 +24,32 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
+  button: {
+    marginTop: 20,
+    margin: "0 auto",
+    color:'white',
+    display: "block",
+    fontSize:'16px',
+    background:"blue",
+    borderRadius:'5px',
+    border:'none',
+    background:'light cyan'
+  },
 }));
 
 export default function ModalFunction({data}) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+
+  let list = [];
+
+  data && Object.entries(data).forEach(([key,value])=>{
+    if(key !== 'id' || key !== 'Nome'){
+      list.push({key,value});
+    }
+  })
+  console.log(list);
 
   const handleOpen = () => {
     setOpen(true);
@@ -49,21 +59,34 @@ export default function ModalFunction({data}) {
     setOpen(false);
   };
 
+  // data && Object.entries(data).forEach(([key,val])=>{
+  //   console.log(key,val);
+  // })
+
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <div className={classes.paper}>
       <form className={classes.root} noValidate>
-        {Object.entries(data).forEach(([key,value])=>{
-          return(
-          <TextField 
-             id="standard-read-only-input"
-             label={key}
-             defaultValue={value}
-             InputProps={{
-               readOnly:true,
-             }}
-          />
-        )})}
+        <Grid container spacing={1}>
+          {list &&
+            list.map((item) => {
+              return (
+                <Grid item xs={4}>
+                <TextField
+                  id="standard-read-only-input"
+                  label={item.key}
+                  defaultValue={item.value}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+                </Grid>
+              );
+            })}
+        </Grid>
       </form>
+      <button type="button" onClick={handleClose} className={classes.button}>
+        fechar
+      </button>
     </div>
   );
 
