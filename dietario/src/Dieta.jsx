@@ -3,32 +3,11 @@ import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import TypoGraphy from "@material-ui/core/Typography";
-import { valoresDiarios } from "./utils.js";
 import * as foodNutrients from "./foodNutrients.js";
 import TabelaSelecionados from "./Component/TabelaSelecionados"
 import TabelaRecomendados from "./Component/TabelaRecomendados"
+import TabelaValoresTotais from "./Component/TabelaValoresTotais"
 
-const TabelaValoresDiarios = (props) => {
-  const cols2 = [
-    { field: "nome", headerName: "Nutriente", width: 130 },
-    { field: "selecionado", headerName: "Selecionado", type: "number", width: 130 },
-    { field: "recomendado", headerName: "Recomendado", type: "number", width: 130 },
-    { field: "unidade", headerName: "Unidade", width: 130 },
-  ];
-
-  const rows = valoresDiarios.map((item) => {
-    return { id: item.id, nome: item.nome, selecionado: 0, recomendado: item.valor, unidade: item.unidade };
-  });
-  
-  return (
-    <>
-      <TypoGraphy variant="h3" component="h2">
-        Valores Diários
-      </TypoGraphy>
-      <DataGrid rows={rows} columns={cols2} />
-    </>
-  );
-};
 
 // este componente é a interface que contém o que será exibido na tela
 
@@ -71,7 +50,7 @@ class Dieta extends React.Component {
   handleAddItem = (id) => {
     let updatedDiets = this.state.dailyDiets
     updatedDiets[this.state.selectedDay].push(id)
-    console.log(updatedDiets)
+    // console.log(updatedDiets)
     this.setState({ dailyDiets: updatedDiets })
   }
 
@@ -94,7 +73,7 @@ class Dieta extends React.Component {
              selectedRows={this.state.dailyDiets[this.state.selectedDay] || []} />
           </Grid>
           <Grid item xs={4} style={{ height: 400 }}>
-            <TabelaValoresDiarios />
+            <TabelaValoresTotais diet={this.state.dailyDiets} foods={this.state.rows} />
           </Grid>
           <Grid item xs={12} style={{ height: 400, width: "60%" }}>
             <TabelaRecomendados rows={this.state.rows}
