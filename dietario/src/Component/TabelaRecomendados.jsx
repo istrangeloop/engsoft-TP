@@ -19,10 +19,10 @@ const TabelaRecomendados = props => {
           Recomendados
         </TypoGraphy>
       </Box>
-      <DataGrid rows={rows} columns={columns}
-       onRowClick={({row}) =>{
-         props.handleAddItem(row.id)
-       }} />
+      <DataGrid rowHeight={32} hideFooterPagination 
+      rows={rows} columns={columns} onRowClick={({row}) =>{
+            props.handleAddItem(row.id)
+          }} />
     </>
   )
 }

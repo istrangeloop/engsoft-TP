@@ -3,9 +3,24 @@ import React, { useState, useEffect } from 'react'
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
 import { valoresDiarios } from "./../utils.js";
+import { makeStyles } from '@material-ui/core/styles';
+
 
 const TabelaValoresTotais = (props) => {
-    
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+          border: 0,
+          color: theme.palette.primary.main,
+          },
+        title: {
+          color: theme.palette.primary.main,
+          fontFamily: "Serif",
+        },
+        }));
+      
+    const classes = useStyles();
+
     const columns = [
       { field: "nome", headerName: "Nutriente", width: 130 },
       { field: "selecionado", headerName: "Selecionado", type: "number", width: 130 },
@@ -42,10 +57,11 @@ const TabelaValoresTotais = (props) => {
 
     return (
       <>
-        <TypoGraphy variant="h3" component="h2">
+        <TypoGraphy className={classes.title} variant="h3" component="h2">
           Valores Diários
         </TypoGraphy>
-        <DataGrid rows={ valoresDiarios.map((item) => formatRowData(item)) } columns={columns} />
+        <DataGrid rowHeight={32} hideFooterPagination
+        className={classes.root} rows={ valoresDiarios.map((item) => formatRowData(item)) } columns={columns} />
       </>
     );
   };

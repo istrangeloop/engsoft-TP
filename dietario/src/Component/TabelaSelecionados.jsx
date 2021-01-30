@@ -31,7 +31,8 @@ const TabelaSelecionados = props => {
       <TypoGraphy variant="h3" component="h2">
         Selecionados
       </TypoGraphy>
-      <DataGrid rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
+      <DataGrid rowHeight={32} hideFooterPagination 
+      rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
        onRowClick={({row}) => {
          props.handleRemoveItem(row.id)
        }} />

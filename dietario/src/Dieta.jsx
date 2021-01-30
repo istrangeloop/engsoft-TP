@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import TypoGraphy from "@material-ui/core/Typography";
+
 import * as foodNutrients from "./foodNutrients.js";
 import TabelaSelecionados from "./Component/TabelaSelecionados"
 import TabelaRecomendados from "./Component/TabelaRecomendados"
