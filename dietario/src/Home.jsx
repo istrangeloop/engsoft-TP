@@ -56,6 +56,7 @@ const Home = props => {
                 <Link to={{ pathname: "/dieta" }} className={classes.button}>
                     Crie sua Dieta aqui!
                 </Link>
+                <Link to={{pathname:"/foods"}} className={classes.button}>Todos alimentos</Link>
         </Container>
     )
 }
