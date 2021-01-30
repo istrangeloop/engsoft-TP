@@ -5,6 +5,33 @@ import TypoGraphy from "@material-ui/core/Typography";
 import { valoresDiarios } from "./../utils.js";
 import { makeStyles } from '@material-ui/core/styles';
 
+const initial = {
+  Carboidrato: 0.0,
+  Cinzas: 0.0,
+  Cobre: 0.0,
+  Colesterol: "NA",
+  Cálcio: 0,
+  Energia: 0,
+  Ferro: 0.0,
+  "Fibra Alimentar": 0.0,
+  Fósforo: 0,
+  Lipídeos: 0,
+  Magnésio: 0,
+  Manganês: 0.0,
+  Niacina: "Tr",
+  Potássio: 0,
+  Proteína: 0,
+  RAE: "",
+  RE: "",
+  Riboflavina: "Tr",
+  Sódio: 0,
+  Tiamina: 0.0,
+  Umidade: 0.0,
+  "Vitamina A": "NA",
+  "Vitamina B6": 0.0,
+  "Vitamina C": "",
+  Zinco: 0.0
+}
 
 const TabelaValoresTotais = (props) => {
 
@@ -30,8 +57,14 @@ const TabelaValoresTotais = (props) => {
 
     const [sumTotals, setSumTotals] = useState([])
     const [foodsInDiet, setFoodsInDiet] = useState([])
-    useEffect(() => { setFoodsInDiet(props.foods.filter(item => props.diet[0].includes(item.id))) },[props])
-    useEffect(() => { if (foodsInDiet.length > 0) { setSumTotals(getSum(foodsInDiet)) } },[foodsInDiet])
+    useEffect(() => { setFoodsInDiet(props.foods.filter(item => props.diet.includes(item.id))) },[props])
+    useEffect(() => { 
+      if (foodsInDiet.length > 0) { 
+        setSumTotals(getSum(foodsInDiet)) 
+      } else {
+        setSumTotals(initial)
+      }
+    },[foodsInDiet])
 
     const getSum = (items) => {
       var keys = Object.keys(items[0])

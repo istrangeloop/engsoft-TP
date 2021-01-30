@@ -64,6 +64,15 @@ class Dieta extends React.Component {
     this.setState({ dailyDiets: updatedDiets })
   }
 
+  increaseDay = () => {
+    this.setState({ selectedDay: (this.state.selectedDay + 1)%7 })
+  }
+
+  decreaseDay = () => {
+    let prevDay = this.state.selectedDay - 1;
+    this.setState({ selectedDay: prevDay >= 0 ? prevDay : 6 })
+  }
+
   render() {
     return (
       <>
@@ -71,10 +80,13 @@ class Dieta extends React.Component {
           <Grid item xs={8} style={{ height: 400 }}>
             <TabelaSelecionados rows={this.state.rows}
              columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
-             selectedRows={this.state.dailyDiets[this.state.selectedDay] || []} />
+             selectedRows={this.state.dailyDiets[this.state.selectedDay] || []}
+             selectedDay={this.state.selectedDay} increaseDay={this.increaseDay}
+             decreaseDay={this.decreaseDay} />
           </Grid>
           <Grid item xs={4} style={{ height: 400 }}>
-            <TabelaValoresTotais diet={this.state.dailyDiets} foods={this.state.rows} />
+            <TabelaValoresTotais diet={this.state.dailyDiets[this.state.selectedDay]}
+             foods={this.state.rows} />
           </Grid>
           <Grid item xs={12} style={{ height: 400, width: "60%" }}>
             <TabelaRecomendados rows={this.state.rows}
