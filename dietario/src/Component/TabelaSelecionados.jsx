@@ -21,11 +21,11 @@ const DaySelector = props => {
     decreaseDay
   } = props
 
-  const buttonStyle = {fontSize:'20px'}
-  const titleStyle = { display: 'flex', justifyContent:'center', width: '10vw' }
+  const buttonStyle = { fontSize: '20px' }
+  const titleStyle = { display: 'flex', justifyContent: 'center', width: '10vw' }
 
   return (
-    <Box style={{ display: 'flex', alignItems:'center' }}>
+    <Box style={{ display: 'flex', alignItems: 'center' }}>
       <Button onClick={decreaseDay} style={buttonStyle}>
         {"<"}
       </Button>
@@ -41,7 +41,7 @@ const DaySelector = props => {
 }
 
 const TabelaSelecionados = props => {
-  
+
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
   const [selectedRows, setSelectedRows] = useState([])
@@ -50,10 +50,11 @@ const TabelaSelecionados = props => {
   useEffect(() => { setRows(props.rows) }, [props.rows])
   useEffect(() => { setColumns(props.columns) }, [props.columns])
   useEffect(() => { setSelectedRows(props.selectedRows) }, [props.selectedRows])
-  useEffect(() => { 
+  useEffect(() => {
     console.log("SelectedDay:")
     console.log(props.selectedDay)
-    setSelectedDay(props.selectedDay) }, [props.selectedDay])
+    setSelectedDay(props.selectedDay)
+  }, [props.selectedDay])
 
   return (
     <>
@@ -61,12 +62,12 @@ const TabelaSelecionados = props => {
         Selecionados
       </TypoGraphy> */}
       <DaySelector selectedDay={selectedDay} increaseDay={props.increaseDay}
-      decreaseDay={props.decreaseDay} />
-      <DataGrid rowHeight={32} hideFooterPagination 
-      rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
-       onRowClick={({row}) => {
-         props.handleRemoveItem(row.id)
-       }} />
+        decreaseDay={props.decreaseDay} />
+      <DataGrid rowHeight={32} hideFooter
+        rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
+        onRowClick={({ row }) => {
+          props.handleRemoveItem(row.id)
+        }} />
     </>
   )
 }
