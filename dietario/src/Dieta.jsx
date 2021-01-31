@@ -89,9 +89,9 @@ class Dieta extends React.Component {
   render() {
     return (
       <>
-        <Grid container spacing={5} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
+        <Grid container spacing={1} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
           <Grid item xs={11} style={{ height: "100%", paddingRight: 0 }} justify="center">
-            <Grid container spacing={5} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
+            <Grid container spacing={3} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
               <Grid item xs={8} style={{ height: '42vh', }}>
                 <TabelaSelecionados rows={this.state.rows}
                   columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
@@ -109,9 +109,9 @@ class Dieta extends React.Component {
             </Grid>
           </Grid>
           <Grid item xs={1} style={{ height: '100vh', padding: '0 0 0 20px' }} justify="center">
-            <div style={{ height: '100%', backgroundColor: 'red' }}>
-              <Button><Link to={{ pathname: "/" }} className="home-button" style={{ textDecoration: 'none', marginTop: 30 }}>
-                "Voltar pra Home"
+            <div style={{ height: '100%', backgroundColor: '#FF8556' }}>
+              <Button><Link to={{ pathname: "/" }} style={{ textDecoration: 'none', color: 'white', marginTop: 30, fontSize: '1.5em',  backgroundColor: '#556cd6' }}>
+                Voltar pra Home
               </Link></Button>
 
               <TypoGraphy style={{ marginTop: 20 }}>Imprimir</TypoGraphy>
