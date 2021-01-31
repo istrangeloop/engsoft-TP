@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
 import MaterialExample from './MaterialExample.js'
@@ -13,9 +12,8 @@ function App() {
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/dieta' component={Dieta}/>
+            <Route exact path='/foods' component={ListWrapper}/>
           </Switch>
-          <ListWrapper/>
-        <MaterialExample />
       </BrowserRouter>
     </div>
   );

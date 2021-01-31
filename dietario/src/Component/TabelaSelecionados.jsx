@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Box, Grid } from "@material-ui/core"
+import { Box, Button } from "@material-ui/core"
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
 
@@ -14,8 +14,34 @@ const int2day = [
   'Sábado',
 ]
 
+const DaySelector = props => {
+  const {
+    selectedDay,
+    increaseDay,
+    decreaseDay
+  } = props
+
+  const buttonStyle = { fontSize: '20px' }
+  const titleStyle = { display: 'flex', justifyContent: 'center', width: '10vw' }
+
+  return (
+    <Box style={{ display: 'flex', alignItems: 'center' }}>
+      <Button onClick={decreaseDay} style={buttonStyle}>
+        {"<"}
+      </Button>
+      <TypoGraphy style={titleStyle}>
+        {int2day[selectedDay]}
+      </TypoGraphy>
+      <Button onClick={increaseDay} style={buttonStyle}>
+        {">"}
+      </Button>
+    </Box>
+  )
+
+}
+
 const TabelaSelecionados = props => {
-  
+
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
   const [selectedRows, setSelectedRows] = useState([])
@@ -24,18 +50,24 @@ const TabelaSelecionados = props => {
   useEffect(() => { setRows(props.rows) }, [props.rows])
   useEffect(() => { setColumns(props.columns) }, [props.columns])
   useEffect(() => { setSelectedRows(props.selectedRows) }, [props.selectedRows])
-  useEffect(() => { setSelectedDay(props.selectedDay) }, [props.selectedDay])
+  useEffect(() => {
+    console.log("SelectedDay:")
+    console.log(props.selectedDay)
+    setSelectedDay(props.selectedDay)
+  }, [props.selectedDay])
 
   return (
     <>
-      <TypoGraphy variant="h3" component="h2">
+      {/* <TypoGraphy variant="h3" component="h2">
         Selecionados
-      </TypoGraphy>
+      </TypoGraphy> */}
+      <DaySelector selectedDay={selectedDay} increaseDay={props.increaseDay}
+        decreaseDay={props.decreaseDay} />
       <DataGrid rowHeight={32} hideFooter
-      rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
-       onRowClick={({row}) => {
-         props.handleRemoveItem(row.id)
-       }} />
+        rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
+        onRowClick={({ row }) => {
+          props.handleRemoveItem(row.id)
+        }} />
     </>
   )
 }

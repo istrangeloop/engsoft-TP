@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import TypoGraphy from "@material-ui/core/Typography";
 
@@ -8,7 +8,6 @@ import * as foodNutrients from "./foodNutrients.js";
 import TabelaSelecionados from "./Component/TabelaSelecionados"
 import TabelaRecomendados from "./Component/TabelaRecomendados"
 import TabelaValoresTotais from "./Component/TabelaValoresTotais"
-
 
 // este componente é a interface que contém o que será exibido na tela
 
@@ -19,7 +18,7 @@ class Dieta extends React.Component {
       initialized: false,
       columns: [],
       rows: [],
-      dailyDiets: [[],[],[],[],[],[],[]], // Dias da semana
+      dailyDiets: [[], [], [], [], [], [], []], // Dias da semana
       selectedDay: 0,
     };
   }
@@ -29,6 +28,24 @@ class Dieta extends React.Component {
 
     const no_value = { Tr: 0, "*": -1, NA: -2, "": -3 };
     const units = foodNutrients.getUnits();
+    const widths = {
+      Nome: 325,
+      Energia: 141,
+      Colesterol: 150,
+      Carboidrato: 149,
+      "Fibra Alimentar": 170,
+      Magnésio: 148,
+      Manganês: 152,
+      Fósforo: 134,
+      Potássio: 141,
+      "Vitamina A": 150,
+      Tiamina: 141,
+      Riboflavina: 157,
+      "Vitamina B6": 163,
+      Niacina: 134,
+      "Vitamina C": 163,
+    };
+
     this.setState({
       columns: foodNutrients
         .getColumns()
@@ -36,8 +53,9 @@ class Dieta extends React.Component {
           return {
             field: x,
             headerName: units[i] ? `${x} (${units[i]})` : x,
-            width: 130,
+            width: x in widths ? widths[x] : 130,
             sortComparator: (v1, v2) => (v1 in no_value ? no_value[v1] : v1) - (v2 in no_value ? no_value[v2] : v2),
+            hide: ["id", "Umidade", "Cinzas", "RE", "RAE"].includes(x),
           };
         })
         .slice(1),
@@ -57,34 +75,55 @@ class Dieta extends React.Component {
 
   handleRemoveItem = (id) => {
     let updatedDiets = this.state.dailyDiets
-    
-    updatedDiets[this.state.selectedDay] = 
-        updatedDiets[this.state.selectedDay].filter(itemId => itemId != id)
+
+    updatedDiets[this.state.selectedDay] =
+      updatedDiets[this.state.selectedDay].filter(itemId => itemId != id)
 
     this.setState({ dailyDiets: updatedDiets })
+  }
+
+  increaseDay = () => {
+    this.setState({ selectedDay: (this.state.selectedDay + 1) % 7 })
+  }
+
+  decreaseDay = () => {
+    let prevDay = this.state.selectedDay - 1;
+    this.setState({ selectedDay: prevDay >= 0 ? prevDay : 6 })
   }
 
   render() {
     return (
       <>
-        <Grid container spacing={3} style={{ width: "90%" }} justify="center">
-          <Grid item xs={8} style={{ height: 400 }}>
-            <TabelaSelecionados rows={this.state.rows}
-             columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
-             selectedRows={this.state.dailyDiets[this.state.selectedDay] || []} />
+        <Grid container spacing={5} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
+          <Grid item xs={11} style={{ height: "100%", paddingRight: 0 }} justify="center">
+            <Grid container spacing={5} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
+              <Grid item xs={8} style={{ height: '42vh', }}>
+                <TabelaSelecionados rows={this.state.rows}
+                  columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
+                  selectedRows={this.state.dailyDiets[this.state.selectedDay] || []}
+                  selectedDay={this.state.selectedDay} increaseDay={this.increaseDay}
+                  decreaseDay={this.decreaseDay} />
+              </Grid>
+              <Grid item xs={4} style={{ height: '42vh' }}>
+                <TabelaValoresTotais diet={this.state.dailyDiets[this.state.selectedDay]}
+                  foods={this.state.rows} />
+              </Grid>
+              <Grid item xs={12} style={{ height: '50vh', width: "60%" }}>
+                <TabelaRecomendados rows={this.state.rows}
+                  columns={this.state.columns} handleAddItem={this.handleAddItem} />
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={4} style={{ height: 400 }}>
-            <TabelaValoresTotais diet={this.state.dailyDiets} foods={this.state.rows} />
-          </Grid>
-          <Grid item xs={12} style={{ height: 400, width: "60%" }}>
-            <TabelaRecomendados rows={this.state.rows}
-             columns={this.state.columns} handleAddItem={this.handleAddItem} />
+          <Grid item xs={1} style={{ height: '100vh', padding: '0 0 0 20px' }} justify="center">
+            <div style={{ height: '100%', backgroundColor: 'red' }}>
+              <Button><Link to={{ pathname: "/" }} className="home-button" style={{ textDecoration: 'none', marginTop: 30 }}>
+                "Voltar pra Home"
+              </Link></Button>
+
+              <TypoGraphy style={{ marginTop: 20 }}>Imprimir</TypoGraphy>
+            </div>
           </Grid>
         </Grid>
-        <p>Imprimir</p>
-        <Link to={{ pathname: "/" }} className="home-button">
-          "Voltar pra Home"
-        </Link>
       </>
     );
   }

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
-import { Box, Grid } from "@material-ui/core"
+import { Box, Grid, makeStyles } from "@material-ui/core"
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
+import SimplePagination from "./simplePagination"
 
 const TabelaRecomendados = props => {
-  
+  const classes = useStyles();
+
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
 
@@ -14,17 +16,34 @@ const TabelaRecomendados = props => {
 
   return (
     <>
-      <Box>
+      <Box class={classes.root}>
         <TypoGraphy variant="h3" component="h2">
           Recomendados
         </TypoGraphy>
       </Box>
-      <DataGrid rowHeight={32} hideFooter
-      rows={rows} columns={columns} onRowClick={({row}) =>{
-            props.handleAddItem(row.id)
-          }} />
+      <DataGrid
+        rowHeight={35}
+        hideFooterSelectedRowCount
+        hideFooterRowCount
+        autoPageSize
+        rows={rows}
+        columns={columns}
+        onRowClick={({ row }) => {
+          props.handleAddItem(row.id)
+        }}
+        components={{
+          Pagination: SimplePagination,
+        }}
+      />
     </>
   )
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 20,
+    color: theme.palette.primary.main,
+  }
+}))
 
 export default TabelaRecomendados
