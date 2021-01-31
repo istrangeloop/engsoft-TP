@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import clsx from 'clsx';
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
 import { valoresDiarios, initial } from "./../foodNutrients.js";
@@ -11,6 +11,18 @@ const TabelaValoresTotais = (props) => {
     root: {
       border: 0,
       color: theme.palette.primary.main,
+      '& .super-app.negative': {
+        color: '#FF4444',
+      },
+      '& .super-app.positive': {
+        color: '#00AA44',
+      },
+      '& .super-app.neutral': {
+        color: '#FFAA00',
+      },
+      '& .super-app.excess': {
+        color: '#AA00AA',
+      },
     },
     title: {
       color: theme.palette.primary.main,
@@ -20,9 +32,20 @@ const TabelaValoresTotais = (props) => {
 
   const classes = useStyles();
 
+
   const columns = [
     { field: "nome", headerName: "Nutriente", width: 130 },
-    { field: "selecionado", headerName: "Selecionado", type: "number", width: 130 },
+    { field: "selecionado", headerName: "Selecionado", type: "number", width: 130, 
+    cellClassName: (params) =>
+      clsx('super-app', {
+        positive: params.getValue('selecionado')/ params.getValue('recomendado') > 0.7 &&
+        params.getValue('selecionado')/ params.getValue('recomendado') <= 1.3,
+        neutral:  0.3 <= params.getValue('selecionado')/ params.getValue('recomendado') &&
+        params.getValue('selecionado')/ params.getValue('recomendado') <= 0.7,
+        negative: params.getValue('selecionado')/ params.getValue('recomendado') <= 0.3,
+        excess: params.getValue('selecionado')/ params.getValue('recomendado') > 1.3,
+      }),
+    },
     { field: "recomendado", headerName: "Recomendado", type: "number", width: 130 },
     { field: "unidade", headerName: "Unidade", width: 130 },
   ];
@@ -68,7 +91,7 @@ const TabelaValoresTotais = (props) => {
 
   return (
     <>
-      <TypoGraphy className={classes.title} variant="h3" component="h2" style={{marginBottom: -20, marginTop: 20}}>
+      <TypoGraphy className={classes.title} variant="h3" component="h2" style={{marginBottom: -20, marginTop: 35}}>
         Valores Diários
         </TypoGraphy>
       <DataGrid rowHeight={32} hideFooter

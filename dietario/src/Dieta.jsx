@@ -90,24 +90,26 @@ class Dieta extends React.Component {
     return (
       <>
         <Grid container spacing={1} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
-          <Grid item xs={11} style={{ height: "100%", paddingRight: 0 }} justify="center">
-            <Grid container spacing={3} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
-              <Grid item xs={8} style={{ height: '42vh', }}>
+          <Grid item xs={4} style={{ height: "100%", paddingRight: 0 }} justify="center" >
+            <Grid container spacing={3} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center"  direction="column">
+              
+              <Grid item style={{ height: '42vh', }}>
                 <TabelaSelecionados rows={this.state.rows}
                   columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
                   selectedRows={this.state.dailyDiets[this.state.selectedDay] || []}
                   selectedDay={this.state.selectedDay} setDay={this.setDay} />
               </Grid>
-              <Grid item xs={4} style={{ height: '42vh' }}>
+              <Grid item style={{ height: '42vh' }}>
                 <TabelaValoresTotais diet={this.state.dailyDiets[this.state.selectedDay]}
                   foods={this.state.rows} />
               </Grid>
-              <Grid item xs={12} style={{ height: '50vh', width: "60%" }}>
+
+            </Grid>
+          </Grid>
+          <Grid item xs={7} style={{ height: '84vh', width: "60%" }}>
                 <TabelaRecomendados rows={this.state.rows}
                   columns={this.state.columns} handleAddItem={this.handleAddItem} />
               </Grid>
-            </Grid>
-          </Grid>
           <Grid item xs={1} style={{ height: '100vh', padding: '0 0 0 20px' }} justify="center">
             <div style={{ height: '100%', backgroundColor: '#FF8556' }}>
               <Button><Link to={{ pathname: "/" }} style={{ textDecoration: 'none', color: 'white', marginTop: 30, fontSize: '1.5em',  backgroundColor: '#556cd6' }}>

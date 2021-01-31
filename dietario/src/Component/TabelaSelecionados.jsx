@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Box, Button, Grid } from "@material-ui/core"
+import { Box, Button, ButtonGroup, Grid } from "@material-ui/core"
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
 import { makeStyles } from '@material-ui/core/styles';
@@ -42,24 +42,52 @@ const DaySelector = props => {
 
 }
 
+const columns = [
+  { field: "nome", headerName: "Nome", width: 300 },
+  { field: "quantidade", 
+    headerName: "Quantidade", 
+    type: "number", 
+    align: "right",
+    width: 150,
+    renderCell: (params) => (
+      <>
+        {params.value}g
+        <ButtonGroup color="primary" 
+        variant="outlined" size="small" 
+        style={{marginLeft: '10px'}}>
+          <Button style={{padding: 0,  width: '20px'}}>-</Button>
+          <Button style={{padding: 0,  width: '20px'}}>+</Button>
+        </ButtonGroup>
+      </>),},
+];
+
 const TabelaSelecionados = props => {
 
   const [rows, setRows] = useState([])
-  const [columns, setColumns] = useState([])
   const [selectedRows, setSelectedRows] = useState([])
   const [selectedDay, setSelectedDay] = useState(0)
+  const [foodsInDiet, setFoodsInDiet] = useState([])
+
   const classes = useStyles();
 
   useEffect(() => { setRows(props.rows) }, [props.rows])
-  useEffect(() => { setColumns(props.columns) }, [props.columns])
   useEffect(() => { setSelectedRows(props.selectedRows) }, [props.selectedRows])
+  useEffect(() => { setFoodsInDiet(rows.filter(item => selectedRows.includes(item.id))) }, [props])
   useEffect(() => {
     console.log("SelectedDay:")
     console.log(props.selectedDay)
     setSelectedDay(props.selectedDay)
   }, [props.selectedDay])
 
-
+  const formatRowData = (item) => {
+    console.log(item)
+    return {
+      id: item.id,
+      nome: item.Nome,
+      quantidade: 100,
+      recomendado: item.Energia,
+    };
+  }
 
   return (
     <>
@@ -67,8 +95,8 @@ const TabelaSelecionados = props => {
         Selecionados
       </TypoGraphy> */}
       <DaySelector selectedDay={selectedDay} setDay={props.setDay} />
-      <DataGrid rowHeight={32} hideFooter className={classes.root}
-        rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
+      <DataGrid rowHeight={32} hideFooter className={classes.root} alignContent='stretch'
+        rows={foodsInDiet.map(item => formatRowData(item))} columns={columns}
         onRowClick={({ row }) => {
           props.handleRemoveItem(row.id)
         }} />

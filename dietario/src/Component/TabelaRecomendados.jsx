@@ -17,7 +17,7 @@ const TabelaRecomendados = props => {
   return (
     <>
       <Box class={classes.root}>
-        <TypoGraphy variant="h3" component="h2" style={{fontFamily: "Serif", marginBottom: -20, marginTop: 50}}>
+        <TypoGraphy variant="h3" component="h2" style={{fontFamily: "Serif", marginBottom: -20, marginTop: -15}}>
           Alimentos
         </TypoGraphy>
       </Box>
