@@ -17,11 +17,11 @@ const TabelaRecomendados = props => {
   return (
     <>
       <Box class={classes.root}>
-        <TypoGraphy variant="h3" component="h2">
-          Recomendados
+        <TypoGraphy variant="h3" component="h2" style={{fontFamily: "Serif", marginBottom: -20, marginTop: 50}}>
+          Alimentos
         </TypoGraphy>
       </Box>
-      <DataGrid
+      <DataGrid className={classes.root}
         rowHeight={35}
         hideFooterSelectedRowCount
         hideFooterRowCount
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
     color: theme.palette.primary.main,
   }
+  
 }))
 
 export default TabelaRecomendados

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { Box, Button } from "@material-ui/core"
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
+import { makeStyles } from '@material-ui/core/styles';
+
 
 const int2day = [
   'Domingo',
@@ -46,6 +48,7 @@ const TabelaSelecionados = props => {
   const [columns, setColumns] = useState([])
   const [selectedRows, setSelectedRows] = useState([])
   const [selectedDay, setSelectedDay] = useState(0)
+  const classes = useStyles();
 
   useEffect(() => { setRows(props.rows) }, [props.rows])
   useEffect(() => { setColumns(props.columns) }, [props.columns])
@@ -56,6 +59,8 @@ const TabelaSelecionados = props => {
     setSelectedDay(props.selectedDay)
   }, [props.selectedDay])
 
+
+
   return (
     <>
       {/* <TypoGraphy variant="h3" component="h2">
@@ -63,7 +68,7 @@ const TabelaSelecionados = props => {
       </TypoGraphy> */}
       <DaySelector selectedDay={selectedDay} increaseDay={props.increaseDay}
         decreaseDay={props.decreaseDay} />
-      <DataGrid rowHeight={32} hideFooter
+      <DataGrid rowHeight={32} hideFooter className={classes.root}
         rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
         onRowClick={({ row }) => {
           props.handleRemoveItem(row.id)
@@ -71,5 +76,12 @@ const TabelaSelecionados = props => {
     </>
   )
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 20,
+    color: theme.palette.primary.main,
+  }
+}))
 
 export default TabelaSelecionados
