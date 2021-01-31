@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
-import { valoresDiarios, initial } from "./../utils.js";
+import { valoresDiarios, initial } from "./../foodNutrients.js";
 import { makeStyles } from '@material-ui/core/styles';
 
 const TabelaValoresTotais = (props) => {
@@ -38,11 +38,17 @@ const TabelaValoresTotais = (props) => {
     }
   }, [foodsInDiet])
 
+  const isNumerical = (v) => {
+    if (typeof(v) == 'number')
+      return v;
+    else return 0;
+  }
+
   const getSum = (items) => {
     var keys = Object.keys(items[0])
     var result = {}
     keys.forEach((key, index) => {
-      result[key] = items.map(el => el[key])
+      result[key] = items.map(el => isNumerical(el[key]) )
         .reduce((acc, int) => acc + int)
     });
     delete result["Nome"];
