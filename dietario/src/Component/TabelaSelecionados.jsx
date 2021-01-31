@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from 'react'
 
-import { Box, Button } from "@material-ui/core"
+import { Box, Button, Grid } from "@material-ui/core"
 import { DataGrid } from "@material-ui/data-grid"
 import TypoGraphy from "@material-ui/core/Typography";
 
 const int2day = [
-  'Domingo',
-  'Segunda-feira',
-  'Terça-feira',
-  'Quarta-feira',
-  'Quinta-feira',
-  'Sexta-feira',
-  'Sábado',
+  'Dom',
+  'Seg',
+  'Ter',
+  'Qua',
+  'Qui',
+  'Sex',
+  'Sab',
 ]
 
 const DaySelector = props => {
   const {
     selectedDay,
-    increaseDay,
-    decreaseDay
+    setDay
   } = props
 
-  const buttonStyle = { fontSize: '20px' }
-  const titleStyle = { display: 'flex', justifyContent: 'center', width: '10vw' }
+  const dayButton = day => (
+    <Grid item xs>
+      <Button onClick={() => setDay(day)}
+        style={{
+          fontWeight: selectedDay == day ? "bold" : "",
+          width: "100%"
+        }}>
+        {int2day[day]}
+      </Button>
+    </Grid>
+  )
 
   return (
-    <Box style={{ display: 'flex', alignItems: 'center' }}>
-      <Button onClick={decreaseDay} style={buttonStyle}>
-        {"<"}
-      </Button>
-      <TypoGraphy style={titleStyle}>
-        {int2day[selectedDay]}
-      </TypoGraphy>
-      <Button onClick={increaseDay} style={buttonStyle}>
-        {">"}
-      </Button>
-    </Box>
+    <Grid container>
+      {[...Array(7).keys()].map(day => dayButton(day))}
+    </Grid>
   )
 
 }
@@ -61,8 +61,7 @@ const TabelaSelecionados = props => {
       {/* <TypoGraphy variant="h3" component="h2">
         Selecionados
       </TypoGraphy> */}
-      <DaySelector selectedDay={selectedDay} increaseDay={props.increaseDay}
-        decreaseDay={props.decreaseDay} />
+      <DaySelector selectedDay={selectedDay} setDay={props.setDay} />
       <DataGrid rowHeight={32} hideFooter
         rows={rows.filter(item => selectedRows.includes(item.id))} columns={columns}
         onRowClick={({ row }) => {
