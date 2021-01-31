@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import TypoGraphy from "@material-ui/core/Typography";
 
@@ -76,8 +76,8 @@ class Dieta extends React.Component {
   render() {
     return (
       <>
-        <Grid container spacing={3} style={{ width: "90%" }} justify="center">
-          <Grid item xs={8} style={{ height: 400 }}>
+        <Grid container spacing={3} style={{ width: "90%",marginLeft:20,marginRight:10 }} justify="center">
+          <Grid item xs={8} style={{ height: 400, }}>
             <TabelaSelecionados rows={this.state.rows}
              columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
              selectedRows={this.state.dailyDiets[this.state.selectedDay] || []}
@@ -93,10 +93,10 @@ class Dieta extends React.Component {
              columns={this.state.columns} handleAddItem={this.handleAddItem} />
           </Grid>
         </Grid>
-        <p>Imprimir</p>
-        <Link to={{ pathname: "/" }} className="home-button">
+        <TypoGraphy style={{marginTop:20}}>Imprimir</TypoGraphy>
+        <Button><Link to={{ pathname: "/" }} className="home-button" style={{textDecoration:'none', marginTop:30}}>
           "Voltar pra Home"
-        </Link>
+        </Link></Button>
       </>
     );
   }
