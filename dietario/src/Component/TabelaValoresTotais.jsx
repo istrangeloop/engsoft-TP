@@ -5,7 +5,6 @@ import TypoGraphy from "@material-ui/core/Typography";
 import { valoresDiarios } from "./../utils.js";
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const TabelaValoresTotais = (props) => {
 
     const useStyles = makeStyles((theme) => ({
@@ -60,7 +59,7 @@ const TabelaValoresTotais = (props) => {
         <TypoGraphy className={classes.title} variant="h3" component="h2">
           Valores Diários
         </TypoGraphy>
-        <DataGrid rowHeight={32} hideFooterPagination
+        <DataGrid rowHeight={32} hideFooter
         className={classes.root} rows={ valoresDiarios.map((item) => formatRowData(item)) } columns={columns} />
       </>
     );
