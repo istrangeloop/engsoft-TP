@@ -1,11 +1,7 @@
 import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import {Grid, TextField, Typography} from '@material-ui/core'
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+import {Grid, TextField} from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,13 +23,18 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: 20,
     margin: "0 auto",
-    color:'white',
+    color: "white",
     display: "block",
-    fontSize:'16px',
-    background:"blue",
-    borderRadius:'5px',
-    border:'none',
-    background:'light cyan'
+    fontSize: "16px",
+    background: "blue",
+    borderRadius: "5px",
+    border: "none",
+    background: "#00264d",
+  },
+  button1: {
+    background: "#3f51b5",
+    color: "#ffffff",
+    borderRadius: "10px",
   },
 }));
 
@@ -45,7 +46,7 @@ export default function ModalFunction({data}) {
   let list = [];
 
   data && Object.entries(data).forEach(([key,value])=>{
-    if(key !== 'id' || key !== 'Nome'){
+    if(key !== 'id' && key !== 'Nome'){
       list.push({key,value});
     }
   })
@@ -58,10 +59,6 @@ export default function ModalFunction({data}) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // data && Object.entries(data).forEach(([key,val])=>{
-  //   console.log(key,val);
-  // })
 
   const body = (
     <div className={classes.paper}>
@@ -92,7 +89,7 @@ export default function ModalFunction({data}) {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <button type="button" onClick={handleOpen} style={{fontSize:'20px'}} className={classes.button1}>
         Visualizar
       </button>
       <Modal
@@ -100,6 +97,7 @@ export default function ModalFunction({data}) {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        class={classes.modal}
       >
         {body}
       </Modal>
