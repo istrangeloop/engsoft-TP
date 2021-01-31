@@ -35,7 +35,7 @@ const DaySelector = props => {
   )
 
   return (
-    <Grid container>
+    <Grid container style={{ marginTop: 20 }}>
       {[...Array(7).keys()].map(day => dayButton(day))}
     </Grid>
   )
@@ -78,7 +78,7 @@ const TabelaSelecionados = props => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: 20,
+    // marginTop: 20,
     color: theme.palette.primary.main,
   }
 }))
