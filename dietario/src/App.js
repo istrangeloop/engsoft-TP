@@ -14,7 +14,6 @@ function App() {
             <Route path='/dieta' component={Dieta}/>
             <Route exact path='/foods' component={ListWrapper}/>
           </Switch>
-        <MaterialExample />
       </BrowserRouter>
     </div>
   );

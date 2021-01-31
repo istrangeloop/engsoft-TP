@@ -35,68 +35,68 @@ const initial = {
 
 const TabelaValoresTotais = (props) => {
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-          border: 0,
-          color: theme.palette.primary.main,
-          },
-        title: {
-          color: theme.palette.primary.main,
-          fontFamily: "Serif",
-        },
-        }));
-      
-    const classes = useStyles();
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      border: 0,
+      color: theme.palette.primary.main,
+    },
+    title: {
+      color: theme.palette.primary.main,
+      fontFamily: "Serif",
+    },
+  }));
 
-    const columns = [
-      { field: "nome", headerName: "Nutriente", width: 130 },
-      { field: "selecionado", headerName: "Selecionado", type: "number", width: 130 },
-      { field: "recomendado", headerName: "Recomendado", type: "number", width: 130 },
-      { field: "unidade", headerName: "Unidade", width: 130 },
-    ];
+  const classes = useStyles();
 
-    const [sumTotals, setSumTotals] = useState([])
-    const [foodsInDiet, setFoodsInDiet] = useState([])
-    useEffect(() => { setFoodsInDiet(props.foods.filter(item => props.diet.includes(item.id))) },[props])
-    useEffect(() => { 
-      if (foodsInDiet.length > 0) { 
-        setSumTotals(getSum(foodsInDiet)) 
-      } else {
-        setSumTotals(initial)
-      }
-    },[foodsInDiet])
+  const columns = [
+    { field: "nome", headerName: "Nutriente", width: 130 },
+    { field: "selecionado", headerName: "Selecionado", type: "number", width: 130 },
+    { field: "recomendado", headerName: "Recomendado", type: "number", width: 130 },
+    { field: "unidade", headerName: "Unidade", width: 130 },
+  ];
 
-    const getSum = (items) => {
-      var keys = Object.keys(items[0])
-      var result = {}
-      keys.forEach((key, index) => {
-        result[key] =  items.map(el => el[key])
-                            .reduce((acc, int) => acc + int)
-      });
-      delete result["Nome"];
-      delete result["id"];  
-      return result;
+  const [sumTotals, setSumTotals] = useState([])
+  const [foodsInDiet, setFoodsInDiet] = useState([])
+  useEffect(() => { setFoodsInDiet(props.foods.filter(item => props.diet.includes(item.id))) }, [props])
+  useEffect(() => {
+    if (foodsInDiet.length > 0) {
+      setSumTotals(getSum(foodsInDiet))
+    } else {
+      setSumTotals(initial)
     }
+  }, [foodsInDiet])
 
-    const formatRowData = (item) => {
-      return { 
-        id: item.id, 
-        nome: item.nome, 
-        selecionado: sumTotals[item.nome] || 0, 
-        recomendado: item.valor, 
-        unidade: item.unidade 
-      };
-    }
+  const getSum = (items) => {
+    var keys = Object.keys(items[0])
+    var result = {}
+    keys.forEach((key, index) => {
+      result[key] = items.map(el => el[key])
+        .reduce((acc, int) => acc + int)
+    });
+    delete result["Nome"];
+    delete result["id"];
+    return result;
+  }
 
-    return (
-      <>
-        <TypoGraphy className={classes.title} variant="h3" component="h2">
-          Valores Diários
+  const formatRowData = (item) => {
+    return {
+      id: item.id,
+      nome: item.nome,
+      selecionado: sumTotals[item.nome] || 0,
+      recomendado: item.valor,
+      unidade: item.unidade
+    };
+  }
+
+  return (
+    <>
+      <TypoGraphy className={classes.title} variant="h3" component="h2">
+        Valores Diários
         </TypoGraphy>
-        <DataGrid rowHeight={32} hideFooterPagination
-        className={classes.root} rows={ valoresDiarios.map((item) => formatRowData(item)) } columns={columns} />
-      </>
-    );
-  };
-  
-  export default TabelaValoresTotais
+      <DataGrid rowHeight={32} hideFooter
+        className={classes.root} rows={valoresDiarios.map((item) => formatRowData(item))} columns={columns} />
+    </>
+  );
+};
+
+export default TabelaValoresTotais

@@ -94,27 +94,36 @@ class Dieta extends React.Component {
   render() {
     return (
       <>
-        <Grid container spacing={3} style={{ width: "90%", marginLeft: 20, marginRight: 10 }} justify="center">
-          <Grid item xs={8} style={{ height: 400, }}>
-            <TabelaSelecionados rows={this.state.rows}
-              columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
-              selectedRows={this.state.dailyDiets[this.state.selectedDay] || []}
-              selectedDay={this.state.selectedDay} increaseDay={this.increaseDay}
-              decreaseDay={this.decreaseDay} />
+        <Grid container spacing={5} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
+          <Grid item xs={11} style={{ height: "100%", paddingRight: 0 }} justify="center">
+            <Grid container spacing={5} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
+              <Grid item xs={8} style={{ height: '42vh', }}>
+                <TabelaSelecionados rows={this.state.rows}
+                  columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
+                  selectedRows={this.state.dailyDiets[this.state.selectedDay] || []}
+                  selectedDay={this.state.selectedDay} increaseDay={this.increaseDay}
+                  decreaseDay={this.decreaseDay} />
+              </Grid>
+              <Grid item xs={4} style={{ height: '42vh' }}>
+                <TabelaValoresTotais diet={this.state.dailyDiets[this.state.selectedDay]}
+                  foods={this.state.rows} />
+              </Grid>
+              <Grid item xs={12} style={{ height: '50vh', width: "60%" }}>
+                <TabelaRecomendados rows={this.state.rows}
+                  columns={this.state.columns} handleAddItem={this.handleAddItem} />
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={4} style={{ height: 400 }}>
-            <TabelaValoresTotais diet={this.state.dailyDiets[this.state.selectedDay]}
-              foods={this.state.rows} />
-          </Grid>
-          <Grid item xs={12} style={{ height: 400, width: "60%" }}>
-            <TabelaRecomendados rows={this.state.rows}
-              columns={this.state.columns} handleAddItem={this.handleAddItem} />
+          <Grid item xs={1} style={{ height: '100vh', padding: '0 0 0 20px' }} justify="center">
+            <div style={{ height: '100%', backgroundColor: 'red' }}>
+              <Button><Link to={{ pathname: "/" }} className="home-button" style={{ textDecoration: 'none', marginTop: 30 }}>
+                "Voltar pra Home"
+              </Link></Button>
+
+              <TypoGraphy style={{ marginTop: 20 }}>Imprimir</TypoGraphy>
+            </div>
           </Grid>
         </Grid>
-        <TypoGraphy style={{ marginTop: 20 }}>Imprimir</TypoGraphy>
-        <Button><Link to={{ pathname: "/" }} className="home-button" style={{ textDecoration: 'none', marginTop: 30 }}>
-          "Voltar pra Home"
-        </Link></Button>
       </>
     );
   }
