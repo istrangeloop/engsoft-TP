@@ -10,7 +10,7 @@ const Home = props => {
         root: {
           margin: theme.spacing(0),
           height: '400px',
-          width: '100%',
+          maxWidth: '100vw',
           background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
         },
         header: {
@@ -23,12 +23,15 @@ const Home = props => {
           fontFamily: "Serif",
         },
         subtitle: {
-            fontFamily: "Monospace",
             color: "white",
+            fontSize: 'xx-large',
+            paddingLeft: '15px'
         },
         button: {
             fontFamily: "Monospace",
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: 'rgb(247 215 144 / 15%)',
+            borderStyle: 'solid',
+            borderWidth: 'thin',
             color: 'white',
             textDecoration: 'none',
             fontSize: '2em',
@@ -46,9 +49,7 @@ const Home = props => {
     return (
         <Container className={classes.root} >
             <Box className={classes.header} >
-                <TypoGraphy variant="h1" component="h1" className={classes.title}>
-                    Dietário
-                </TypoGraphy>
+                <img style={{width: '37vw'}} src="/logo.svg"/>
                 <TypoGraphy variant="h4" component="h4" className={classes.subtitle}>
                     Um planejador de dietas saudáveis!
                 </TypoGraphy>

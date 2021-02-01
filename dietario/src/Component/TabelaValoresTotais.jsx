@@ -91,7 +91,7 @@ const TabelaValoresTotais = (props) => {
 
   return (
     <>
-      <TypoGraphy className={classes.title} variant="h3" component="h2" style={{marginBottom: -20, marginTop: 35}}>
+      <TypoGraphy className={classes.title} variant="h3" component="h2" style={{marginBottom: -15, marginTop: 38}}>
         Valores Diários
         </TypoGraphy>
       <DataGrid rowHeight={32} hideFooter

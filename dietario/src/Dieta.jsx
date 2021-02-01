@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Grid, Button } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
-import TypoGraphy from "@material-ui/core/Typography";
+import { Grid, Button, IconButton, Divider, Icon } from "@material-ui/core";
+import { EventBusy, Publish, Save, Settings } from '@material-ui/icons';
 
 import * as foodNutrients from "./foodNutrients.js";
 import TabelaSelecionados from "./Component/TabelaSelecionados"
@@ -106,17 +105,41 @@ class Dieta extends React.Component {
 
             </Grid>
           </Grid>
-          <Grid item xs={7} style={{ height: '84vh', width: "60%" }}>
+          <Grid item xs={7} style={{ height: '85vh', width: "60%" }}>
                 <TabelaRecomendados rows={this.state.rows}
                   columns={this.state.columns} handleAddItem={this.handleAddItem} />
               </Grid>
           <Grid item xs={1} style={{ height: '100vh', padding: '0 0 0 20px' }} justify="center">
-            <div style={{ height: '100%', backgroundColor: '#FF8556' }}>
-              <Button><Link to={{ pathname: "/" }} style={{ textDecoration: 'none', color: 'white', marginTop: 30, fontSize: '1.5em',  backgroundColor: '#556cd6' }}>
-                Voltar pra Home
+            <div style={{ 
+              height: '100%', 
+              backgroundColor: '#ff8e53', 
+              borderRadius: '25px 0',
+              paddingLeft: '20px',
+              paddingRight: '20px'
+              }}>
+              <Button><Link to={{ pathname: "/" }} style={{ textDecoration: 'none', color: 'white', marginTop: 20}}>
+                <Icon>
+                <img style={{width: '4vw'}} src="/icon.svg"/>
+                </Icon>
               </Link></Button>
 
-              <TypoGraphy style={{ marginTop: 20 }}>Imprimir</TypoGraphy>
+              <Divider style={{ marginTop: 10, marginBottom: 40 }}/>
+              
+              <IconButton>
+              <EventBusy fontSize="large"/>
+              </IconButton>
+
+              <IconButton>
+              <Save fontSize="large"/>
+              </IconButton>
+
+              <IconButton>
+              <Publish fontSize="large"/>
+              </IconButton>
+
+              <IconButton>
+              <Settings fontSize="large"/>
+              </IconButton>
             </div>
           </Grid>
         </Grid>
