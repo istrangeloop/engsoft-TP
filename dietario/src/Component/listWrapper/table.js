@@ -55,8 +55,7 @@ const List = ({ items }) => {
                 : items
               ).map((item) => (
                 <TableRow key={item.id}>
-                      <TableCell style={{ fontSize: "16px"}}>
-                        {" "}
+                      <TableCell style={{ fontSize: "16px", color:'#3f51b5'}}>
                         {item.Nome}
                       </TableCell>
                       <TableCell style={{ fontSize: "16px" }} align='center'>
