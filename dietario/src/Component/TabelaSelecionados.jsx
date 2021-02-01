@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import { Box, Button, ButtonGroup, Grid } from "@material-ui/core"
+import { Button, ButtonGroup, Grid } from "@material-ui/core"
 import { DataGrid } from "@material-ui/data-grid"
-import TypoGraphy from "@material-ui/core/Typography";
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -24,7 +23,7 @@ const DaySelector = props => {
 
   const dayButton = day => (
     <Grid item xs>
-      <Button onClick={() => setDay(day)}
+      <Button onClick={() => { setDay(day) }}
         style={{
           fontWeight: selectedDay == day ? "bold" : "",
           borderColor: selectedDay == day ? "#e0e0e0" : "#fafafa",
@@ -80,15 +79,10 @@ const TabelaSelecionados = props => {
 
   useEffect(() => { setRows(props.rows) }, [props.rows])
   useEffect(() => { setSelectedRows(props.selectedRows) }, [props.selectedRows])
-  useEffect(() => { setFoodsInDiet(rows.filter(item => selectedRows.includes(item.id))) }, [props])
-  useEffect(() => {
-    console.log("SelectedDay:")
-    console.log(props.selectedDay)
-    setSelectedDay(props.selectedDay)
-  }, [props.selectedDay])
+  useEffect(() => { setFoodsInDiet(rows.filter(item => selectedRows.includes(item.id))) }, [props.selectedDay])
+  useEffect(() => { setSelectedDay(props.selectedDay) }, [props.selectedDay])
 
   const formatRowData = (item) => {
-    console.log(item)
     return {
       id: item.id,
       nome: item.Nome,
@@ -108,7 +102,8 @@ const TabelaSelecionados = props => {
         scrollbarSize={17}
         hideFooter
         alignContent='stretch'
-        rows={foodsInDiet.map(item => formatRowData(item))}
+        rows={rows.filter(item => selectedRows.includes(item.id))
+                  .map(item => formatRowData(item)) }
         columns={columns}
         onRowClick={({ row }) => {
           props.handleRemoveItem(row.id)

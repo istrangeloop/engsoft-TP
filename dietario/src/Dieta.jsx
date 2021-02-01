@@ -66,9 +66,10 @@ class Dieta extends React.Component {
   }
 
   handleAddItem = (id) => {
+    console.log("SELECTED DAY")
+    console.log(this.state.selectedDay)
     let updatedDiets = this.state.dailyDiets
     updatedDiets[this.state.selectedDay].push(id)
-    // console.log(updatedDiets)
     this.setState({ dailyDiets: updatedDiets })
   }
 
