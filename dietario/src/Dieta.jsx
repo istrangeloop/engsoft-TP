@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Grid, Button, IconButton, Divider, Icon } from "@material-ui/core";
-import { EventBusy, Publish, Save, Settings } from '@material-ui/icons';
+import { EventBusy, Publish, Save, Settings } from "@material-ui/icons";
 
+import * as PDF from "./pdf.js";
 import * as foodNutrients from "./foodNutrients.js";
-import TabelaSelecionados from "./Component/TabelaSelecionados"
-import TabelaRecomendados from "./Component/TabelaRecomendados"
-import TabelaValoresTotais from "./Component/TabelaValoresTotais"
+import TabelaSelecionados from "./Component/TabelaSelecionados";
+import TabelaRecomendados from "./Component/TabelaRecomendados";
+import TabelaValoresTotais from "./Component/TabelaValoresTotais";
 
 // este componente é a interface que contém o que será exibido na tela
 
@@ -53,7 +54,9 @@ class Dieta extends React.Component {
             field: x,
             headerName: units[i] ? `${x} (${units[i]})` : x,
             width: x in widths ? widths[x] : 130,
-            sortComparator: (v1, v2) => (v1 in no_value ? no_value[v1] : v1) - (v2 in no_value ? no_value[v2] : v2),
+            sortComparator: (v1, v2) =>
+              (v1 in no_value ? no_value[v1] : v1) -
+              (v2 in no_value ? no_value[v2] : v2),
             hide: ["id", "Umidade", "Cinzas", "RE", "RAE"].includes(x),
           };
         })
@@ -66,80 +69,140 @@ class Dieta extends React.Component {
   }
 
   handleAddItem = (id) => {
-    console.log("SELECTED DAY")
-    console.log(this.state.selectedDay)
-    let updatedDiets = this.state.dailyDiets
-    updatedDiets[this.state.selectedDay].push(id)
-    this.setState({ dailyDiets: updatedDiets })
-  }
+    console.log("SELECTED DAY");
+    console.log(this.state.selectedDay);
+    let updatedDiets = this.state.dailyDiets;
+    updatedDiets[this.state.selectedDay].push(id);
+    this.setState({ dailyDiets: updatedDiets });
+  };
 
   handleRemoveItem = (id) => {
-    let updatedDiets = this.state.dailyDiets
+    let updatedDiets = this.state.dailyDiets;
 
-    updatedDiets[this.state.selectedDay] =
-      updatedDiets[this.state.selectedDay].filter(itemId => itemId != id)
+    updatedDiets[this.state.selectedDay] = updatedDiets[
+      this.state.selectedDay
+    ].filter((itemId) => itemId != id);
 
-    this.setState({ dailyDiets: updatedDiets })
-  }
+    this.setState({ dailyDiets: updatedDiets });
+  };
 
-  setDay = day => {
-    this.setState({ selectedDay: day })
-  }
+  setDay = (day) => {
+    this.setState({ selectedDay: day });
+  };
 
   render() {
     return (
       <>
-        <Grid container spacing={1} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center">
-          <Grid item xs={4} style={{ height: "100%", paddingRight: 0 }} justify="center" >
-            <Grid container spacing={3} style={{ width: "100%", marginLeft: 0, marginRight: 0 }} justify="center"  direction="column">
-              
-              <Grid item style={{ height: '42vh', }}>
-                <TabelaSelecionados rows={this.state.rows}
-                  columns={this.state.columns} handleRemoveItem={this.handleRemoveItem}
-                  selectedRows={this.state.dailyDiets[this.state.selectedDay] || []}
-                  selectedDay={this.state.selectedDay} setDay={this.setDay} />
+        <Grid
+          container
+          spacing={1}
+          style={{ width: "100%", marginLeft: 0, marginRight: 0 }}
+          justify="center"
+        >
+          <Grid
+            item
+            xs={4}
+            style={{ height: "100%", paddingRight: 0 }}
+            justify="center"
+          >
+            <Grid
+              container
+              spacing={3}
+              style={{ width: "100%", marginLeft: 0, marginRight: 0 }}
+              justify="center"
+              direction="column"
+            >
+              <Grid item style={{ height: "42vh" }}>
+                <TabelaSelecionados
+                  rows={this.state.rows}
+                  columns={this.state.columns}
+                  handleRemoveItem={this.handleRemoveItem}
+                  selectedRows={
+                    this.state.dailyDiets[this.state.selectedDay] || []
+                  }
+                  selectedDay={this.state.selectedDay}
+                  setDay={this.setDay}
+                />
               </Grid>
-              <Grid item style={{ height: '42vh' }}>
-                <TabelaValoresTotais diet={this.state.dailyDiets[this.state.selectedDay]}
-                  foods={this.state.rows} />
+              <Grid item style={{ height: "42vh" }}>
+                <TabelaValoresTotais
+                  diet={this.state.dailyDiets[this.state.selectedDay]}
+                  foods={this.state.rows}
+                />
               </Grid>
-
             </Grid>
           </Grid>
-          <Grid item xs={7} style={{ height: '85vh', width: "60%" }}>
-                <TabelaRecomendados rows={this.state.rows}
-                  columns={this.state.columns} handleAddItem={this.handleAddItem} />
-              </Grid>
-          <Grid item xs={1} style={{ height: '100vh', padding: '0 0 0 20px' }} justify="center">
-            <div style={{ 
-              height: '100%', 
-              backgroundColor: '#ff8e53', 
-              borderRadius: '25px 0',
-              paddingLeft: '20px',
-              paddingRight: '20px'
-              }}>
-              <Button><Link to={{ pathname: "/" }} style={{ textDecoration: 'none', color: 'white', marginTop: 20}}>
-                <Icon>
-                <img style={{width: '4vw'}} src="/icon.svg"/>
-                </Icon>
-              </Link></Button>
+          <Grid item xs={7} style={{ height: "85vh", width: "60%" }}>
+            <TabelaRecomendados
+              rows={this.state.rows}
+              columns={this.state.columns}
+              handleAddItem={this.handleAddItem}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={1}
+            style={{ height: "100vh", padding: "0 0 0 20px" }}
+            justify="center"
+          >
+            <div
+              style={{
+                height: "100%",
+                backgroundColor: "#ff8e53",
+                borderRadius: "25px 0",
+                paddingLeft: "20px",
+                paddingRight: "20px",
+              }}
+            >
+              <Button>
+                <Link
+                  to={{ pathname: "/" }}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    marginTop: 20,
+                  }}
+                >
+                  <Icon>
+                    <img style={{ width: "4vw" }} src="/icon.svg" />
+                  </Icon>
+                </Link>
+              </Button>
 
-              <Divider style={{ marginTop: 10, marginBottom: 40 }}/>
-              
+              <Divider style={{ marginTop: 10, marginBottom: 40 }} />
+
               <IconButton>
-              <EventBusy fontSize="large"/>
+                <EventBusy fontSize="large" />
               </IconButton>
 
-              <IconButton>
-              <Save fontSize="large"/>
+              <IconButton
+                onClick={async () => await PDF.saveDiet(this.state.dailyDiets)}
+              >
+                <Save fontSize="large" />
               </IconButton>
 
-              <IconButton>
-              <Publish fontSize="large"/>
-              </IconButton>
+              <input type="file" id="dietFile" accept="application/pdf" style={{ display: 'none' }} onChange={ async ({target}) => {
+                if (target.files.length > 0) {
+                  let loadedDiet = await PDF.loadDiet(await target.files[0].arrayBuffer())
+                  if (loadedDiet) {
+                    console.log(loadedDiet)
+                    this.setState({dailyDiets : loadedDiet})
+                  } else {
+                    console.log('PDF is not a valid diet')
+                  }
+                  
+                } else {
+                  console.log('No file selected')
+                }
+              }}/>
+              <label htmlFor="dietFile">
+                <IconButton component="span">
+                  <Publish fontSize="large" />
+                </IconButton>
+              </label>
 
               <IconButton>
-              <Settings fontSize="large"/>
+                <Settings fontSize="large" />
               </IconButton>
             </div>
           </Grid>
