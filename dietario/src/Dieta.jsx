@@ -171,7 +171,9 @@ class Dieta extends React.Component {
 
               <Divider style={{ marginTop: 10, marginBottom: 40 }} />
 
-              <IconButton>
+              <IconButton
+                onClick={() => this.setState({ dailyDiets: [[], [], [], [], [], [], []]})}
+              >
                 <EventBusy fontSize="large" />
               </IconButton>
 
