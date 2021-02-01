@@ -55,7 +55,7 @@ const columns = [
     headerName: "Quantidade",
     type: "number",
     align: "right",
-    width: 150,
+    flex: 1,
     renderCell: (params) => (
       <>
         {params.value}g
