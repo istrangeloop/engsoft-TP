@@ -1,7 +1,7 @@
 import React,{useState} from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles} from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import {Grid, TextField} from '@material-ui/core'
+import {Grid, TextField,Button} from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,10 +26,8 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     display: "block",
     fontSize: "16px",
-    background: "blue",
     borderRadius: "5px",
-    border: "none",
-    background: "#00264d",
+    background: "#3f51b5",
   },
   button1: {
     background: "#3f51b5",
@@ -81,17 +79,17 @@ export default function ModalFunction({data}) {
             })}
         </Grid>
       </form>
-      <button type="button" onClick={handleClose} className={classes.button}>
+      <Button onClick={handleClose} variant="contained" color="primary" style={{fontSize:'20px'}} class={classes.button}>
         fechar
-      </button>
+      </Button>
     </div>
   );
 
   return (
     <div>
-      <button type="button" onClick={handleOpen} style={{fontSize:'20px'}} className={classes.button1}>
+      <Button variant="contained" color="primary" onClick={handleOpen} style={{fontSize:'12px'}}>
         Visualizar
-      </button>
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

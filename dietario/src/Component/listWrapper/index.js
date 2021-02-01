@@ -34,7 +34,7 @@ const ListWrapper = () =>{
           </Typography>
         </div>
         <List items={foods} />
-        <Button variant="contained" className={classes.button}>
+        <Button variant="contained" color="primary" className={classes.button}>
           <Link
             to={{ pathname: "/" }}
             style={{ textDecoration: "none", color: "#ffffff" }}
