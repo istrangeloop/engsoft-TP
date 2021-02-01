@@ -35,7 +35,7 @@ const TabelaValoresTotais = (props) => {
 
   const columns = [
     { field: "nome", headerName: "Nutriente", width: 130 },
-    { field: "selecionado", headerName: "Selecionado", type: "number", width: 130, 
+    { field: "selecionado", headerName: "Selecionado", type: "number", width: 85, 
     cellClassName: (params) =>
       clsx('super-app', {
         positive: params.getValue('selecionado')/ params.getValue('recomendado') > 0.7 &&
@@ -46,7 +46,7 @@ const TabelaValoresTotais = (props) => {
         excess: params.getValue('selecionado')/ params.getValue('recomendado') > 1.3,
       }),
     },
-    { field: "recomendado", headerName: "Recomendado", type: "number", width: 130 },
+    { field: "recomendado", headerName: "Recomendado", type: "number", width: 90 },
     { field: "unidade", headerName: "Unidade", width: 130 },
   ];
 
