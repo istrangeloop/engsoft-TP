@@ -81,7 +81,7 @@ class Dieta extends React.Component {
 
     updatedDiets[this.state.selectedDay] = updatedDiets[
       this.state.selectedDay
-    ].filter((itemId) => itemId != id);
+    ].filter((itemId) => itemId !== id);
 
     this.setState({ dailyDiets: updatedDiets });
   };
@@ -114,11 +114,9 @@ class Dieta extends React.Component {
             >
               <Grid item style={{ height: "42vh" }}>
                 <TabelaSelecionados
-                  rows={this.state.rows}
-                  columns={this.state.columns}
                   handleRemoveItem={this.handleRemoveItem}
                   selectedRows={
-                    this.state.dailyDiets[this.state.selectedDay] || []
+                    this.state.dailyDiets[this.state.selectedDay].map(id => foodNutrients.idToFood(id)) || []
                   }
                   selectedDay={this.state.selectedDay}
                   setDay={this.setDay}
@@ -164,7 +162,7 @@ class Dieta extends React.Component {
                   }}
                 >
                   <Icon>
-                    <img style={{ width: "4vw" }} src="/icon.svg" />
+                    <img alt="" style={{ width: "4vw" }} src="/icon.svg" />
                   </Icon>
                 </Link>
               </Button>
@@ -172,7 +170,7 @@ class Dieta extends React.Component {
               <Divider style={{ marginTop: 10, marginBottom: 40 }} />
 
               <IconButton
-                onClick={() => this.setState({ dailyDiets: [[], [], [], [], [], [], []]})}
+                onClick={() => this.setState({ dailyDiets: [[], [], [], [], [], [], []] })}
               >
                 <EventBusy fontSize="large" />
               </IconButton>
@@ -183,20 +181,20 @@ class Dieta extends React.Component {
                 <Save fontSize="large" />
               </IconButton>
 
-              <input type="file" id="dietFile" accept="application/pdf" style={{ display: 'none' }} onChange={ async ({target}) => {
+              <input type="file" id="dietFile" accept="application/pdf" style={{ display: 'none' }} onChange={async ({ target }) => {
                 if (target.files.length > 0) {
                   let loadedDiet = await PDF.loadDiet(await target.files[0].arrayBuffer())
                   if (loadedDiet) {
                     console.log(loadedDiet)
-                    this.setState({dailyDiets : loadedDiet})
+                    this.setState({ dailyDiets: loadedDiet })
                   } else {
                     console.log('PDF is not a valid diet')
                   }
-                  
+
                 } else {
                   console.log('No file selected')
                 }
-              }}/>
+              }} />
               <label htmlFor="dietFile">
                 <IconButton component="span">
                   <Publish fontSize="large" />

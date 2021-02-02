@@ -24,21 +24,12 @@ async function saveDiet(diet) {
   let diet_data = JSON.stringify(diet);
   doc.setCreator(magicWord + diet_data);
 
-  let days = [
-    "Domingo",
-    "Segunda-Feira",
-    "Terça-Feira",
-    "Quarta-Feira",
-    "Quinta-Feira",
-    "Sexta-Feira",
-    "Sábado",
-  ];
+  let days = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
 
   diet = diet.map((weekday) =>
     weekday.map((food) => {
       return {
-        nome: foodNutrients.getFoods().filter((item) => food == item.id)[0]
-          .Nome,
+        nome: foodNutrients.idToFood(food).Nome,
         quantidade: 100,
         unidade: "g",
       };
@@ -47,7 +38,7 @@ async function saveDiet(diet) {
 
   console.log(diet);
   for (let d = 0; d < days.length; d++) {
-    if (diet[d].length == 0) continue;
+    if (diet[d].length === 0) continue;
 
     const page = doc.addPage();
 

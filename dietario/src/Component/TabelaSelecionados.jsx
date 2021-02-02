@@ -25,10 +25,10 @@ const DaySelector = props => {
     <Grid item xs>
       <Button onClick={() => { setDay(day) }}
         style={{
-          fontWeight: selectedDay == day ? "bold" : "",
-          borderColor: selectedDay == day ? "#e0e0e0" : "#fafafa",
-          borderStyle: selectedDay == day ? 'solid solid none solid' : "solid none none none",
-          zIndex: selectedDay == day ? 1 : 0,
+          fontWeight: selectedDay === day ? "bold" : "",
+          borderColor: selectedDay === day ? "#e0e0e0" : "#fafafa",
+          borderStyle: selectedDay === day ? 'solid solid none solid' : "solid none none none",
+          zIndex: selectedDay === day ? 1 : 0,
           borderRadius: '4px 4px 0 0',
           backgroundColor: '#fafafa',
           borderWidth: 'thin',
@@ -70,16 +70,12 @@ const columns = [
 
 const TabelaSelecionados = props => {
 
-  const [rows, setRows] = useState([])
   const [selectedRows, setSelectedRows] = useState([])
   const [selectedDay, setSelectedDay] = useState(0)
-  const [foodsInDiet, setFoodsInDiet] = useState([])
 
   const classes = useStyles();
 
-  useEffect(() => { setRows(props.rows) }, [props.rows])
   useEffect(() => { setSelectedRows(props.selectedRows) }, [props.selectedRows])
-  useEffect(() => { setFoodsInDiet(rows.filter(item => selectedRows.includes(item.id))) }, [props.selectedDay])
   useEffect(() => { setSelectedDay(props.selectedDay) }, [props.selectedDay])
 
   const formatRowData = (item) => {
@@ -102,8 +98,7 @@ const TabelaSelecionados = props => {
         scrollbarSize={17}
         hideFooter
         alignContent='stretch'
-        rows={rows.filter(item => selectedRows.includes(item.id))
-                  .map(item => formatRowData(item)) }
+        rows={selectedRows.map(item => formatRowData(item))}
         columns={columns}
         onRowClick={({ row }) => {
           props.handleRemoveItem(row.id)
