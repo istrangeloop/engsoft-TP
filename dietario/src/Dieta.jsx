@@ -112,7 +112,7 @@ class Dieta extends React.Component {
               justify="center"
               direction="column"
             >
-              <Grid item style={{ height: "42vh" }}>
+              <Grid item style={{ height: "49vh" }}>
                 <TabelaSelecionados
                   handleRemoveItem={this.handleRemoveItem}
                   selectedRows={
@@ -130,7 +130,7 @@ class Dieta extends React.Component {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={7} style={{ height: "85vh", width: "60%" }}>
+          <Grid item xs={7} style={{ height: "91vh", width: "60%" }}>
             <TabelaRecomendados
               rows={this.state.rows}
               columns={this.state.columns}
